@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&family=Martian+Mono:wght@300&display=swap" rel="stylesheet">
+    <script src="jquery-3.7.1.min.js"></script>
+    <style type="text/css">
+        body{
+            margin: 0px;
+            font-family: 'Manrope';
+            font-size: 16px;
+        }
+        #navbar-top{
+            background-color: #E40046;
+            padding: 20px;
+            text-align: right;
+            font-size: 20px;
+        }
+        .link-right{
+            text-decoration: none;
+            margin-right: 25px;
+            color: white;
+        }
+        #home-link{
+            float: left;
+            margin-left: 25px;
+            text-decoration: none;
+            color: white;
+        }
+        #home-link:hover{
+            color: rgb(162, 160, 160);
+            transition-duration: 0.2s;
+        }
+        .link-right:hover{
+            color: rgb(162, 160, 160);
+            transition-duration: 0.2s;
+        }
+        .linksDados{
+            background-color: #E40046;
+            padding: 50px;
+            margin: 50px;
+            margin-top: 20px;
+            font-size: 30px;
+            border-radius: 20px;
+            box-shadow: 10px 10px;
+        }
+        #linkBiProducao{
+            color: black;
+            text-decoration: none;
+        }
+        li{
+            list-style: none;
+        }
+        .grid-item{
+            margin: auto;
+            font-size: 20px;  
+            background-color: #E40046; 
+            padding: 1.5em; 
+            border-radius: 17px;  
+            cursor: pointer;     
+            box-shadow: 7px 7px; 
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            width: 50%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar-top">
+        <a href="index.html" id="home-link">Compliance Tech</a>
+        <a href="automacoes.html" class="link-right" id="automacoes-link">Automações</a>
+        <a href="dados.html" class="link-right" id="dados-link">Dados</a>
+    </nav>
+    <ul class="grid-container">
+        <li class="grid-item" id="bi-producao">BI Produção</li>
+        <li class="grid-item" id="planilha-producao">Planilha de Produção - Dezembro</li>
+    </ul>
+    <script type="text/javascript">
+        $(".grid-item").on({
+                mousedown: function(){
+                    $(this).css({
+                        boxShadow: 'none',
+                        top: '5px',
+                        left: '5px',
+                        position: 'relative'
+                    });
+
+                },
+                mouseup: function(){
+                    $(this).css({
+                        boxShadow: "5px 5px",
+                        top: '0px',
+                        left: '0px',
+                        position: 'relative'
+                    });
+                }
+            })
+        $(".grid-container li").click(function(){
+            var name = $(this).attr('id');
+            if(name == 'bi-producao'){
+                window.location = "https://app.powerbi.com/groups/me/reports/30faba8e-e4ae-4eee-8738-0f6ab4b3f0c3/ReportSectiona48aa612be52085c0534?experience=power-bi"
+            }else if(name == 'planilha-producao'){
+                window.location == "https://brazaglobal.sharepoint.com/:x:/r/sites/Compliance/_layouts/15/Doc.aspx?sourcedoc=%7BB45A86C8-94AA-4789-B42C-2F9ADD1A432B%7D&file=12-BASE%20ALERTAS%20DEZEMBRO_Separa%C3%A7%C3%A3o%20An%C3%A1lise.xlsx&action=default&mobileredirect=true"
+            }
+        })
+    </script>
+</body>
+</html>
