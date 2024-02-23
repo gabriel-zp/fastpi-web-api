@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&family=Martian+Mono:wght@300&display=swap" rel="stylesheet">
+    <script src="jquery-3.7.1.min.js"></script>
+    <style type="text/css">
+        body{
+            margin: 0px;
+            font-family: 'Manrope';
+            font-size: 16px;
+        }
+        #navbar-top{
+            background-color: #E40046;
+            padding: 20px;
+            text-align: right;
+            font-size: 20px;
+        }
+        .link-right{
+            text-decoration: none;
+            margin-right: 25px;
+            color: white;
+        }
+        #home-link{
+            float: left;
+            margin-left: 25px;
+            text-decoration: none;
+            color: white;
+        }
+        #home-link:hover{
+            color: rgb(162, 160, 160);
+            transition-duration: 0.2s;
+        }
+        .link-right:hover{
+            color: rgb(162, 160, 160);
+            transition-duration: 0.2s;
+        }
+        .grid-container{
+            display: flex;
+            padding: 30px;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            
+        }
+        .grid-item{
+            justify-content: center;
+            display: flex;
+            color: black;
+            align-items: center;
+            text-align: center;
+            margin: 10px;
+            height: 100px;
+            border-radius: 20px;
+            background-color: #E40046; 
+            flex: 1 1 auto;
+            font-size: 1.5em;
+            cursor:pointer;
+            border: 2px #fff solid;
+            box-shadow: 5px 5px;
+        }
+        #formatacao-sircoi{
+            cursor:pointer;
+        }
+        li{
+            list-style:none; 
+        }
+
+        .form {
+            background-color: #E40046;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            color: #fff;
+            box-shadow: 5px 5px black;
+            border: 2px solid white;
+        }
+
+        .form input[type="file"],
+        .form input[type="number"]{
+
+            width: 70%;
+            padding: 10px;
+            border: none;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            font-size: 1em; 
+        }
+
+        .form input[type="submit"]{
+            background-color: #fff;
+            color: #df1555;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+        }
+
+        .form input[type="email"],
+        .form input[type="text"]{
+            width: 50%;
+            padding: 10px;
+            border: none;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            font-size: 1em; 
+        }
+        #formatacao-sircoi-completo-result {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: #df1555;
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            box-shadow: 5px 5px black;
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 30 px;
+        }
+
+        #formatacao-sircoi-completo-result a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        #formatacao-sircoi-completo-result a:hover {
+            color: #007BFF;
+        }
+
+    </style>
+</head>
+<body>
+    <nav id="navbar-top">
+        <a href="index.html" id="home-link">Compliance Tech</a>
+        <a href="automacoes.html" class="link-right" id="automacoes-link">Automações</a>
+        <a href="dados.html" class="link-right" id="dados-link">Dados</a>
+    </nav>
+
+    <ul class="grid-container">
+        <li class="grid-item" id="formatacao-sircoi">
+            N2 Escalonados
+        </li>
+        <li class="grid-item" id="formatacao-sircoi-completa">
+            Formatação da base Sircoi
+        </li>
+        <li class="grid-item" id="casos-escalonados">
+            N2 Escalonados
+        </li>
+    </ul>
+
+    <div id="formatacao-sircoi-content" class="content">
+        <form id="formatacao-form" method="post" class="form">
+            <h1>Formatação da base Sircoi</h1>
+            <input type="file" id="excelFile" name="excelFile" accept=".xls,.xlsx" required><br>
+            <input type="number" id="positiveInteger" name="positiveInteger" min="1" required><br>
+            <input type="submit">
+        </form>        
+        <div id="formatacao-sircoi-result" style="display: none;"></div> 
+    </div>
+
+    <div id="formatacao-sircoi-completa-content" class="content">
+        <form id="teste-form" method="post" class="form">
+            <h1>Formatação da base Sircoi</h1>
+            <label for="arquivo_bytes" style="margin-left: 15px; font-size: 20px;">Arquivo Base Principal</label>
+            <input type="file" id="arquivo_bytes" name="arquivo_bytes" accept=".xls,.xlsx" required> <br>
+            <input type="number" id="n" name="n" min="1" placeholder="Número de analistas a serem dividos" required> 
+            <input type="submit">       
+        </form>
+        <div id="formatacao-sircoi-completo-result" style="display: none;">
+        </div> 
+    </div>
+
+    <div id="casos-escalonados-content" class="content">
+3
+    </div>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //configurando a sombra e posição dos botões no clique
+            $(".grid-item").on({
+                mousedown: function(){
+                    $(this).css({
+                        boxShadow: 'none',
+                        top: '5px',
+                        left: '5px',
+                        position: 'relative'
+                    },200);
+
+                },
+                mouseup: function(){
+                    $(this).css({
+                        boxShadow: "5px 5px",
+                        top: '0px',
+                        left: '0px',
+                        position: 'relative'
+                    },200);
+                },
+                mouseenter: function(){
+                    $(this).css({
+                        "background-color":"#c21049",
+                        "transition":"background-color 0.2s ease"
+                    });
+                },
+                mouseleave: function(){
+                        $(this).css({
+                            "background-color":"#E40046",
+                            "transition":"background-color 0.2s ease"
+                        })
+                    }
+            })
+            //definindo todos os elemntos do menu como inativos, exceto o primeiro
+            $('.grid-container li:not(:first)').addClass('inactive');
+            //escondendo os formulários
+            $('.content').hide();
+            $('.content:first').show();
+            //dando função para os itens de click do menu 
+            $('.grid-container li').click(function(){
+                //atribuindo o id do botão clicado à variável
+                var t = $(this).attr('id');
+                //condição para verificar se o botão está com formulário nativo
+                if($(this).hasClass('inactive')){
+                    //se estiver inativo, deixar todos os menus inativos
+                    $('.grid-container li').addClass('inactive');      
+                    //remover a classe inativo do botão clicado
+                    $(this).removeClass('inactive');
+                    //escondendo a class content
+                    $('.content').hide();
+                    //mostrando o botão atual
+                    $('#'+ t + '-content').fadeIn('slow');
+                }
+            });
+            //parametrizando o formulário do formatar
+            $("#formatacao-form").on('submit', function(e){
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '/api/v1/endpoint1',  // Substitua 'api_endpoint' pela URL da sua API
+                    type: 'POST',
+                    data: formData,
+                    success: function(data, status) {
+                        console.log('Sucesso: ' + data);
+                        $('#formatacao-sircoi-result').html('Processo concluído: <a href="' + data.links +'">Link para download</a>').show();
+                    },
+                    error: function(data) {
+                        alert('Erro: ' + data);
+                        $('#formatacao-sircoi-result').html('erro fi').show();
+
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+            $("#teste-form").on('submit', function(e){
+                e.preventDefault();
+                var formData = new FormData(this)
+                $.ajax({
+                    url: '/api/v1/endpoint2',
+                    type: 'POST',
+                    data: formData,
+                    success: function(data){
+                        $('#formatacao-sircoi-completo-result').html('Processo concluído: <a href="'+data.planilha1_consolidada+'">Planilha1 (Consolidada)</a><a href="'+data.planilha1_separada+'">Planilha1 (Separada)</a><a href="'+data.planilha2_consolidada+'">Planilha2 (Consolidada)</a><a href="'+data.planilha2_separada+'">Planilha2 (Separada)</a>').fadeIn();
+                    },
+                    error:function(){
+                        alert("sowk");
+                        
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            })
+        })
+    </script>
+  
+</body>
+</html>

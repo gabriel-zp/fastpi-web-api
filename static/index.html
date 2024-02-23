@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&family=Martian+Mono:wght@300&display=swap" rel="stylesheet">
+    <script src="jquery-3.7.1.min.js"></script>
+    <style type="text/css">
+        body{
+            margin: 0px;
+            font-family: 'Manrope';
+            font-size: 16px;
+        }
+        #navbar-top{
+            background-color: #E40046;
+            padding: 20px;
+            text-align: right;
+            font-size: 20px;
+        }
+        .link-right{
+            text-decoration: none;
+            margin-right: 25px;
+            color: white;
+        }
+        #home-link{
+            float: left;
+            margin-left: 25px;
+            text-decoration: none;
+            color: white;
+        }
+        #home-link:hover{
+            color: rgb(162, 160, 160);
+            transition-duration: 0.2s;
+        }
+        .link-right:hover{
+            color: rgb(162, 160, 160);
+            transition-duration: 0.2s;
+        }
+        .introducao{
+            padding: 25px;
+            margin: 20px
+        }
+        img{
+            display: flex;
+            float: left;
+            width: 8%;
+            height: auto;
+            margin: 10px;
+            margin-bottom: 150px;
+        }
+        .login{
+            color: white;
+            margin: 20px;
+            padding: 25px;
+            width: 30%;
+            border-radius: 20px;
+            background-color: #E40046;
+        }
+        .login input[type="text"],
+        .login input[type="password"]{
+            width: 70%;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 7px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar-top">
+        <a href="index.html" id="home-link" style="display: none;">Compliance Tech</a>
+        <a href="automacoes.html" class="link-right" id="automacoes-link" style="display: none;">Automações</a>
+        <a href="dados.html" class="link-right" id="dados-link" style="display: none;">Dados</a>
+    </nav>
+    <form class="login">
+        <div class="login-component">
+            <label for="username-login">Usuário</label><br>
+            <input type="text" placeholder="Insira o usuário" id="username-login">
+        </div>
+        <div class="login-component">
+            <label for="password-login">Senha</label><br>
+            <input type="password" id="password-login" placeholder="Insira a senha"><br>
+            <input type="checkbox" name="checkbox" id="show-password" class="inactive"> Mostrar senha
+        </div>
+        <div class="login-component">
+            <button type="button" id="submitButton">Entrar</button>
+            <p style="display: none; color: rgb(139, 0, 0);" id="blank-alert"><b></b></p>
+        </div>
+    </form>
+    <div class="introducao" style="display: none;">   
+        <h2>Bem-vindo ao Compliance Tech!<img src="images/cloud.png" alt="cloud" id="cloudimage"></h2>
+        <p>Esse é um acervo tech que reúne todas as ferramentas, automações e links úteis para o setor de compliance.</p>
+        <p>Todas as ferrementas disponíveis nesse acervo são de ampla utilidade por parte dos colaboradores do Braza Bank.</p>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#submitButton").on("click", function(event){
+                event.preventDefault();
+
+                var username = $("#username-login").val();
+                var password = $("#password-login").val();
+
+                if(username == "" || password == ""){
+                    $("#blank-alert").hide();
+                    $("#blank-alert").html("Preencha todos os campos.");
+                    $("#blank-alert").show();
+
+                } else if(password == "admnistrador1"){
+                    $("#home-link").fadeIn();
+                    $("#automacoes-link").fadeIn();
+                    $("#dados-link").fadeIn();
+                    $(".introducao").slideDown();
+                    $(".introducao h2").html("Bem vindo(a) ao Compliance Tech, "+$("#username-login").val()+"!")
+                    $("#blank-alert").hide();
+
+                } else {
+                    $("#blank-alert").hide();
+                    $("#blank-alert").html("Usuário e/ou senha incorreto(s).")
+                    $("#blank-alert").show();
+                }
+            })
+
+            $("#show-password").click(function(){              
+                if($(this).hasClass("inactive")){
+                    $("#password-login").prop('type', 'text');
+                    $(this).addClass("active");
+                    $(this).removeClass("inactive");
+                } else if($(this).hasClass("active")){
+                    $("#password-login").prop('type', 'password');
+                    $(this).addClass("inactive");
+                    $(this).removeClass("active");
+                }
+                
+            })
+        })
+    </script>
+   
+    
+</body>
+</html>
